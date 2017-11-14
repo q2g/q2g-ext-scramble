@@ -155,7 +155,6 @@ class ScrambleDimensionExtension {
             return true;
         }
     }
-
 }
 
 export = {
