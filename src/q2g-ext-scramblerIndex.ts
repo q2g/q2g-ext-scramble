@@ -1,9 +1,9 @@
 //#region imports
 import * as qvangular from "qvangular";
 import * as qlik from "qlik";
-import * as template from "text!./src/q2g-ext-scrambledimension.html";
-import { utils, logging, services, version } from "./node_modules/davinci.js/dist/daVinci";
-import { ScrambleDirectiveFactory, IShortcutProperties } from "./src/q2g-ext-scrambledimensionExtension";
+import * as template from "text!./q2g-ext-scrambledimension.html";
+import { utils, logging, services, version } from "../node_modules/davinci.js/dist/daVinci";
+import { ScrambleDirectiveFactory, IShortcutProperties } from "./q2g-ext-scrambledimensionExtension";
 //#endregion
 
 //#region registrate services
