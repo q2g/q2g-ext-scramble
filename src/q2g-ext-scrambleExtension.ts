@@ -1,306 +1,170 @@
-//#region interfaces
-import { utils, logging, directives } from "../node_modules/davinci.js/dist/daVinci";
+//#region imports
+import * as qvangular from "qvangular";
+import * as qlik from "qlik";
 import * as template from "text!./q2g-ext-scrambleExtension.html";
+import { utils, logging, services, version } from "../node_modules/davinci.js/dist/daVinci";
+import { ScrambleDirectiveFactory, IShortcutProperties } from "./q2g-ext-scrambleDirective";
+//#endregion
+
+//#region registrate services
+qvangular.service<services.IRegistrationProvider>("$registrationProvider", services.RegistrationProvider)
+.implementObject(qvangular);
 //#endregion
 
 //#region interfaces
-export interface IShortcutProperties {
-    shortcutFocusDimensionList: string;
-    shortcutFocusSearchField: string;
-    shortcutUseDefaults: string;
-    showObject: string;
-    showSystem: boolean;
-    showHidden: boolean;
-    showSemantic: boolean;
-    showSrcTables: boolean;
-    showDefinitionOnly: boolean;
-    showDerivedFields: boolean;
-    showImplicit: boolean;
+interface IDataProperties {
+    properties: IShortcutProperties;
 }
 //#endregion
 
-class ScrambleController {
+//#region logger
+logging.LogConfig.SetLogLevel("*", logging.LogLevel.info);
+let logger = new logging.Logger("Main");
+//#endregion
 
-    $onInit(): void {
-        this.logger.debug("initialisation from BookmarkController");
-    }
+//#region registrate directives
+var $injector = qvangular.$injector;
+utils.checkDirectiveIsRegistrated($injector, qvangular, "", ScrambleDirectiveFactory("Scrambleextension"),
+    "ScrambleExtension");
+//#endregion
 
-    //#region variables
-    fieldList: utils.IQ2gListAdapter;
-    element: JQuery;
-    focusedPosition: number = 0;
-    headerPlaceholder: string = "Search Dimensions";
-    inputBarFocus: boolean = false;
-    menuList: Array<utils.IMenuElement>;
-    showButtons: boolean = false;
-    showFocused: boolean = false;
-    showSearchField: boolean = false;
-    timeout: ng.ITimeoutService;
-    titleDimension: string = "Scramble Extension";
-    selectedObjects: Array<string> = [];
-    //#endregion
-
-    //#region headerInput
-    private _headerInput: string = "";
-    public get headerInput(): string {
-        return this._headerInput;
-    }
-    public set headerInput(v : string) {
-        if (v !== this._headerInput) {
-            try {
-                this._headerInput = v;
-                this.fieldList.obj.searchFor(!v? "": v)
-                .then(() => {
-                    this.fieldList.obj.emit("changed", utils.calcNumbreOfVisRows(this.elementHeight));
-                    this.fieldList.itemsCounter = (this.fieldList.obj as any).model.calcCube.length;
-                    this.timeout();
-                })
-                .catch((error) => {
-                    this.logger.error("error", error);
-                });
-            } catch (error) {
-                this.logger.error("ERROR", error);
-            }
-        }
-    }
-    //#endregion
-
-    //#region elementHeight
-    private _elementHeight: number = 0;
-    get elementHeight(): number {
-        return this._elementHeight;
-    }
-    set elementHeight(value: number) {
-        if (this.elementHeight !== value) {
-            try {
-                this._elementHeight = value;
-                if (this.fieldList && this.fieldList.obj) {
-                    this.fieldList.obj.emit("changed", utils.calcNumbreOfVisRows(this.elementHeight));
+//#region set extension parameters
+let parameter = {
+    type: "items",
+    component: "accordion",
+    items: {
+        settings: {
+            uses: "settings",
+            items: {
+                configuration: {
+                    type: "items",
+                    label: "Configuration",
+                    grouped: true,
+                    items: {
+                        qShowSystem: {
+                            type: "boolean",
+                            label: "Show System Fields",
+                            ref: "properties.showSystem",
+                            defaultValue: false
+                        },
+                        qShowHidden: {
+                            type: "boolean",
+                            label: "Show Hidden Fields",
+                            ref: "properties.showHidden",
+                            defaultValue: false
+                        },
+                        qShowSemantic: {
+                            type: "boolean",
+                            label: "Show Semantic Fields",
+                            ref: "properties.showSemantic",
+                            defaultValue: false
+                        },
+                        qShowSrcTables: {
+                            type: "boolean",
+                            label: "Show Sourc Table Fields",
+                            ref: "properties.showSrcTables",
+                            defaultValue: true
+                        },
+                        qShowDefinitionOnly: {
+                            type: "boolean",
+                            label: "Show Fields defined on the Fly",
+                            ref: "properties.showDefinitionOnly",
+                            defaultValue: false
+                        },
+                        qShowDerivedFields: {
+                            type: "boolean",
+                            label: "Show Deroved Fields",
+                            ref: "properties.showDerivedFields",
+                            defaultValue: false
+                        },
+                        qShowImplicit: {
+                            type: "boolean",
+                            label: "Show Direct Discovery Fields",
+                            ref: "properties.showImplicit",
+                            defaultValue: false
+                        }
+                    }
+                },
+                accessibility: {
+                    type: "items",
+                    label: "Accessibility",
+                    grouped: true,
+                    items: {
+                        ShortcutLable: {
+                            label: "In the following, you can change the used shortcuts",
+                            component: "text"
+                        },
+                        shortcutUseDefaults: {
+                            ref: "properties.shortcutUseDefaults",
+                            label: "use default shortcuts",
+                            component: "switch",
+                            type: "boolean",
+                            options: [{
+                                value: true,
+                                label: "use"
+                            }, {
+                                value: false,
+                                label: "not use"
+                            }],
+                            defaultValue: true
+                        },
+                        shortcutFocusDimensionList: {
+                            ref: "properties.shortcutFocusDimensionList",
+                            label: "focus dimension list",
+                            type: "string",
+                            defaultValue: "strg + alt + 66",
+                            show: function (data: IDataProperties) {
+                                if (data.properties.shortcutUseDefaults) {
+                                    data.properties.shortcutFocusDimensionList = "strg + alt + 66";
+                                }
+                                return !data.properties.shortcutUseDefaults;
+                            }
+                        },
+                        shortcutFocusSearchField: {
+                            ref: "properties.shortcutFocusSearchField",
+                            label: "focus search field",
+                            type: "string",
+                            defaultValue: "strg + alt + 83",
+                            show: function (data: IDataProperties) {
+                                if (data.properties.shortcutUseDefaults) {
+                                    data.properties.shortcutFocusSearchField = "strg + alt + 83";
+                                }
+                                return !data.properties.shortcutUseDefaults;
+                            }
+                        }
+                    }
                 }
-            } catch (err) {
-                this.logger.error("error in setter of elementHeight ", err);
             }
         }
     }
-    //#endregion
+};
+//#endregion
 
-    //#region model
-    private _model: EngineAPI.IGenericObject;
-    get model(): EngineAPI.IGenericObject {
-        return this._model;
+class ScrambleDimensionExtension {
+
+    model: EngineAPI.IGenericObject;
+
+    constructor(model: EngineAPI.IGenericObject) {
+        this.model = model;
     }
-    set model(value: EngineAPI.IGenericObject) {
-        if (value !== this._model) {
-            try {
-                this._model = value;
-                let properites: EngineAPI.IGenericObjectProperties;
-                let that = this;
-                this.model.on("changed", function() {
-                    that.model.getProperties()
-                    .then((res) => {
-                        properites = that.buildListProperties(res);
-                        return that.setProperties(res.properties);
-                    })
-                    .then(() => {
-                        return that.model.app.createSessionObject(properites);
-                    })
-                    .then((object: EngineAPI.IGenericObject) => {
-                        object.on("changed", function () {
-                            this.getLayout()
-                            .then((objectLayout: EngineAPI.IGenericHyperCubeLayout) => {
-                                let listObject = new utils.Q2gIndObject(
-                                    new utils.AssistHyperCubeFields(objectLayout));
 
-                                listObject.on("changeData", () => {
-                                    for (var i of that.fieldList.collection) {
-                                        if (that.selectedObjects.indexOf(i.title) >= 0) {
-                                            i.status = "S";
-                                            that.timeout();
-                                        }
-                                    }
-                                });
-
-                                that.fieldList = new utils.Q2gListAdapter(
-                                    listObject, utils.calcNumbreOfVisRows(that.elementHeight),
-                                    (objectLayout as any).qFieldList.qItems.length, "list");
-                            })
-                            .catch((error) => {
-                                this.logger.error("Error in on change of bookmark object", error);
-                            });
-                        });
-                        object.emit("changed");
-                    })
-                    .catch((error) => {
-                        this.logger.error("ERROR in setter of model", error);
-                    });
-                });
-                this.model.emit("changed");
-            } catch (error) {
-                this.logger.error("ERROR in setter of model", error);
-            }
+    public isEditMode() {
+        if (qlik.navigation.getMode() === "analysis") {
+            return false;
+        } else {
+            return true;
         }
-    }
-    //#endregion
-
-    //#region theme
-    private _theme: string;
-    get theme(): string {
-        if (this._theme) {
-            return this._theme;
-        }
-        return "default";
-    }
-    set theme(value: string) {
-        if (value !== this._theme) {
-            this._theme = value;
-        }
-    }
-    //#endregion
-
-    //#region logger
-    private _logger: logging.Logger;
-    private get logger(): logging.Logger {
-        if (!this._logger) {
-            try {
-                this._logger = new logging.Logger("BookmarkController");
-            } catch (e) {
-                this.logger.error("ERROR in create logger instance", e);
-            }
-        }
-        return this._logger;
-    }
-    //#endregion
-
-    static $inject = ["$timeout", "$element", "$scope"];
-
-    /**
-     * init of the controller for the Directive
-     * @param timeout
-     * @param element
-     */
-    constructor (timeout: ng.ITimeoutService, element: JQuery, scope: ng.IScope) {
-
-        this.element = element;
-        this.timeout = timeout;
-
-        this.initMenuElements();
-
-        $(document).on("click", (e: JQueryEventObject) => {
-            try {
-                if (element.find(e.target).length === 0) {
-                    this.showFocused = false;
-                    this.showButtons = false;
-                    this.showSearchField = false;
-                    this.headerInput= null;
-                    this.selectedObjects = [];
-                    this.timeout();
-                }
-            } catch (e) {
-                this.logger.error("Error in Constructor with click event", e);
-            }
-        });
-
-        scope.$watch(() => {
-            return this.element.width();
-        }, () => {
-            this.elementHeight = this.element.height();
-        });
-    }
-
-    /**
-     * saves the Properties from the getLayout call from qlik enine in own Object
-     * @param properties Properties from getLayout call
-     */
-    private setProperties(properties: any): Promise<boolean> {
-        return new Promise((resolve, reject) => {
-            resolve();
-        });
-    }
-
-    /**
-     * function which gets called, when the buttons of the menu list gets hit
-     * @param item name of the button which got activated
-     */
-    menuListActionCallback(): void {
-        for(var field of this.selectedObjects) {
-            this.model.app.scramble(field);
-        }
-        this.menuList[0].isEnabled = false;
-        this.menuList = JSON.parse(JSON.stringify(this.menuList));
-        this.selectedObjects = [];
-    }
-
-    /**
-     * functionsality when selecting an element in the list
-     * @param pos position of the callback to be selected
-     */
-    selectObjectCallback(pos: number) {
-        this.showButtons = true;
-        this.menuList[0].isEnabled = false;
-        this.selectedObjects.push(this.fieldList.collection[pos].title);
-
-        this.fieldList.collection[pos].status = "S";
-        this.menuList = JSON.parse(JSON.stringify(this.menuList));
-    }
-
-    /**
-     * fills the Menu with Elements
-     */
-    private initMenuElements(): void {
-        this.menuList = [];
-        this.menuList.push({
-            buttonType: "success",
-            isVisible: true,
-            isEnabled: true,
-            icon: "tick",
-            name: "Confirm Selection",
-            hasSeparator: false,
-            type: "menu"
-        });
-    }
-
-    /**
-     * creates the definition for the object
-     * @param properties
-     */
-    private buildListProperties(properties: EngineAPI.IGenericObjectProperties): EngineAPI.IGenericObjectProperties {
-        let returnProperties: EngineAPI.IGenericObjectProperties = {
-            "qInfo": { "qType": "FieldList" },
-            "qFieldListDef": {
-                "qShowSystem": properties.showSystem,
-                "qShowHidden": properties.showHidden,
-                "qShowSemantic": properties.showSemantic,
-                "qShowSrcTables": properties.showSrcTables,
-                "qShowDefinitionOnly": properties.showDefinitionOnly,
-                "qShowDerivedFields": properties.showDerivedFields,
-                "qShowImplicit": properties.showImplicit
-            }
-        };
-        return returnProperties;
     }
 }
 
-export function ScrambleDirectiveFactory(rootNameSpace: string): ng.IDirectiveFactory {
-    "use strict";
-    return ($document: ng.IAugmentedJQuery, $injector: ng.auto.IInjectorService, $registrationProvider: any) => {
-        return {
-            restrict: "E",
-            replace: true,
-            template: utils.templateReplacer(template, rootNameSpace),
-            controller: ScrambleController,
-            controllerAs: "vm",
-            scope: {},
-            bindToController: {
-                model: "<",
-                theme: "<?",
-                editMode: "<?"
-            },
-            compile: ():void => {
-                utils.checkDirectiveIsRegistrated($injector, $registrationProvider, rootNameSpace,
-                    directives.ListViewDirectiveFactory(rootNameSpace), "Listview");
-                utils.checkDirectiveIsRegistrated($injector, $registrationProvider, rootNameSpace,
-                    directives.ExtensionHeaderDirectiveFactory(rootNameSpace), "ExtensionHeader");
-            }
-        };
-    };
-}
+export = {
+    definition: parameter,
+    initialProperties: { },
+    template: template,
+    controller: ["$scope", function (scope: utils.IVMScope<ScrambleDimensionExtension>) {
+        console.log("Extension is using daVinci.js Verions: " + version);
+        scope.vm = new ScrambleDimensionExtension(utils.getEnigma(scope));
+    }]
+};
+
+

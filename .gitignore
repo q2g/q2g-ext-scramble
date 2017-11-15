@@ -7,7 +7,7 @@ dist/*.d.ts
 node_modules/
 dist/
 
-!q2g-ext-scrambler.js
+!q2g-ext-scramble.js
 
 
 
