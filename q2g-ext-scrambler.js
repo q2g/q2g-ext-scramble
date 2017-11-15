@@ -1,3 +1,3 @@
-define(["./src/q2g-ext-scrambler"], function(scrambler) {
+define(["./src/q2g-ext-scramblerIndex"], function(scrambler) {
     return scrambler;
 });
