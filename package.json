@@ -5,7 +5,7 @@
   "description": "scramble fields",
   "repository": {
     "type": "git",
-    "url": "https://github.com/q2g/q2g-ext-bookmark"
+    "url": "https://github.com/q2g/q2g-ext-scramble"
   },
   "author": "Thomas Häning, Konrad Mattheis (qlik2go) ",
   "devDependencies": {
