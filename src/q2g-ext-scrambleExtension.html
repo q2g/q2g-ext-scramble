@@ -1,42 +1,9 @@
+<div qv-extension
+    class="q2g-scrambledimension"
+    style="height: 100%; position: relative;">
 
-<div class="root-container"
-    ng-class="{'root-container-{{vm.theme}}':true}"
-    tabindex="0"
-    q2g-shortcut-scope="rootelement"
-    style="height:100%; width:100%">
+    <q2g-scramble-extension model="vm.model"
+                            edit-mode="vm.isEditMode()">
+    </q2g-scramble-extension>
 
-    <div>
-        <div>
-            <q2g-extension-header max-number-of-elements="5"
-                                    reserved-button-width="0.5"
-                                    title="vm.titleDimension"
-                                    theme="vm.theme"
-                                    
-                                    input-accept="vm.extensionHeaderAccept()"
-                                    input-field="vm.headerInput"
-                                    input-bar-placeholder="vm.headerPlaceholder"
-                                    input-bar-visible="vm.showSearchField"
-                                    input-bar-focus="vm.inputBarFocus"
-
-                                    menu-visible="vm.showButtons"
-                                    menu-callback="vm.menuListActionCallback(item)"
-                                    menu-list="vm.menuList">
-            </q2g-extension-header>
-        </div>
-            
-        <div>
-            <q2g-listview style="height: calc(100% - 90px);"
-                            tabindex="0"
-                            items="vm.fieldList.collection"
-                            items-count="vm.fieldList.itemsCounter"
-                            items-page-top="vm.fieldList.itemsPagingTop"
-                            items-page-height="vm.fieldList.itemsPagingHeight"
-                            item-height="31"
-                            item-focused="vm.focusedPosition"
-                            show-focused="vm.showFocused"
-                            callback-listview-objects="vm.selectObjectCallback(pos)"
-                            theme="vm.theme">
-            </q2g-listview>
-        </div>
-    </div>
 </div>
