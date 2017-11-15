@@ -162,7 +162,7 @@ export = {
     initialProperties: { },
     template: template,
     controller: ["$scope", function (scope: utils.IVMScope<ScrambleDimensionExtension>) {
-        console.log("Extension is using daVinci.js Verions: " + version);
+        logger.info("Extension is using daVinci.js Verions: " + version);
         scope.vm = new ScrambleDimensionExtension(utils.getEnigma(scope));
     }]
 };
