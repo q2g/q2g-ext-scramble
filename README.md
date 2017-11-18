@@ -24,4 +24,4 @@ NOT working at the moment
 2. Install [nodejs](https://nodejs.org/)
 3. Open Node.js command prompt
 4. npm install
-5. npm run com
+5. npm run comp
