@@ -4,7 +4,7 @@
 
 ## Intro
 
-![teaser](https://github.com/q2g/q2g-ext-scramble/raw/master/docs/teaser.mp4 "Short teaser")
+![teaser](https://github.com/q2g/q2g-ext-scramble/raw/master/docs/teaser.gif "Short teaser")
 
 ## Install
 
