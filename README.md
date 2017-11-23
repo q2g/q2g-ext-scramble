@@ -2,6 +2,8 @@
 [![Greenkeeper badge](https://badges.greenkeeper.io/q2g/q2g-ext-scramble.svg)](https://greenkeeper.io/)
 [![TravisCI](https://travis-ci.org/q2g/q2g-ext-scramble.svg?branch=master)](https://travis-ci.org/q2g/q2g-ext-scramble)
 
+This extensions allows to scramble field in the datamodel.
+
 ## Intro
 
 ![teaser](https://github.com/q2g/q2g-ext-scramble/raw/master/docs/teaser.gif "Short teaser")
@@ -10,9 +12,7 @@
 
 ### binary
 
-NOT working at the moment
-
-1. Got to Qlik Market and [Download the ZIP](http://market.qlik.com/solutions/akquinet_extension_package)
+1. [Download the ZIP](https://m.sense2go.net/extension-package) and unzip
 2. Qlik Sense Desktop
    Copy it to: %homeptah%\Documents\Qlik\Sense\Extensions and unzip
 3. Qlik Sense Entripse
@@ -24,4 +24,4 @@ NOT working at the moment
 2. Install [nodejs](https://nodejs.org/)
 3. Open Node.js command prompt
 4. npm install
-5. npm run comp
+5. npm run build
