@@ -1,8 +1,7 @@
 # q2g-ext-scramble
 [![Greenkeeper badge](https://badges.greenkeeper.io/q2g/q2g-ext-scramble.svg)](https://greenkeeper.io/)
 [![TravisCI](https://travis-ci.org/q2g/q2g-ext-scramble.svg?branch=master)](https://travis-ci.org/q2g/q2g-ext-scramble)
-[![Downloads](https://m.sense2go.net/downloads.svg)](https://m.sense2go.net/extension-package)
-
+[![Downloads](https://m.sense2go.net/downloads.svg?q2g-ext-scramble)](https://m.sense2go.net/extension-package)
 
 This extensions allows to scramble field in the datamodel.
 
