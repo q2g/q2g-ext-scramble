@@ -161,6 +161,17 @@ export = {
     definition: parameter,
     initialProperties: { },
     template: template,
+    support: {
+        snapshot: false,
+        export: false,
+        exportData: false
+    },
+    paint: () => {
+        //
+    },
+    resize: () => {
+        //
+    },
     controller: ["$scope", function (scope: utils.IVMScope<ScrambleDimensionExtension>) {
         logger.info("Extension is using daVinci.js Verions: " + version);
         scope.vm = new ScrambleDimensionExtension(utils.getEnigma(scope));
