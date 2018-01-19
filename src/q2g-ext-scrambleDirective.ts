@@ -1,5 +1,5 @@
 //#region interfaces
-import { utils, logging, directives } from "../node_modules/davinci.js/dist/daVinci";
+import { utils, logging, directives } from "../node_modules/davinci.js/dist/umd/daVinci";
 import * as template from "text!./q2g-ext-scrambleDirective.html";
 //#endregion
 
@@ -51,7 +51,7 @@ class ScrambleController {
                 this._headerInput = v;
                 this.fieldList.obj.searchFor(!v? "": v)
                 .then(() => {
-                    this.fieldList.obj.emit("changed", utils.calcNumbreOfVisRows(this.elementHeight));
+                    this.fieldList.obj.emit("changed", this.fieldList.itemsPagingHeight);
                     this.fieldList.itemsCounter = (this.fieldList.obj as any).model.calcCube.length;
                     this.timeout();
                 })
@@ -74,9 +74,6 @@ class ScrambleController {
         if (this.elementHeight !== value) {
             try {
                 this._elementHeight = value;
-                if (this.fieldList && this.fieldList.obj) {
-                    this.fieldList.obj.emit("changed", utils.calcNumbreOfVisRows(this.elementHeight));
-                }
             } catch (err) {
                 this.logger.error("error in setter of elementHeight ", err);
             }
@@ -121,7 +118,7 @@ class ScrambleController {
                                 });
 
                                 that.fieldList = new utils.Q2gListAdapter(
-                                    listObject, utils.calcNumbreOfVisRows(that.elementHeight),
+                                    listObject, that.fieldList.itemsPagingHeight,
                                     (objectLayout as any).qFieldList.qItems.length, "list");
                             })
                             .catch((error) => {
