@@ -73,7 +73,7 @@ let parameter = {
                         },
                         qShowDerivedFields: {
                             type: "boolean",
-                            label: "Show Deroved Fields",
+                            label: "Show Derived Fields",
                             ref: "properties.showDerivedFields",
                             defaultValue: false
                         },
