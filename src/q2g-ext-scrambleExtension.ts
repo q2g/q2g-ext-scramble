@@ -41,48 +41,48 @@ let parameter = {
                     label: "Configuration",
                     grouped: true,
                     items: {
-                        qShowSystem: {
-                            type: "boolean",
-                            label: "Show System Fields",
-                            ref: "properties.showSystem",
-                            defaultValue: false
-                        },
+                        // qShowSystem: {
+                        //     type: "boolean",
+                        //     label: "Show System Fields",
+                        //     ref: "properties.showSystem",
+                        //     defaultValue: false
+                        // },
                         qShowHidden: {
                             type: "boolean",
                             label: "Show Hidden Fields",
                             ref: "properties.showHidden",
                             defaultValue: false
-                        },
-                        qShowSemantic: {
-                            type: "boolean",
-                            label: "Show Semantic Fields",
-                            ref: "properties.showSemantic",
-                            defaultValue: false
-                        },
-                        qShowSrcTables: {
-                            type: "boolean",
-                            label: "Show Source Table Fields",
-                            ref: "properties.showSrcTables",
-                            defaultValue: false
-                        },
-                        qShowDefinitionOnly: {
-                            type: "boolean",
-                            label: "Show Fields defined on the Fly",
-                            ref: "properties.showDefinitionOnly",
-                            defaultValue: false
-                        },
-                        qShowDerivedFields: {
-                            type: "boolean",
-                            label: "Show Derived Fields",
-                            ref: "properties.showDerivedFields",
-                            defaultValue: false
-                        },
-                        qShowImplicit: {
-                            type: "boolean",
-                            label: "Show Direct Discovery Fields",
-                            ref: "properties.showImplicit",
-                            defaultValue: false
                         }
+                        // qShowSemantic: {
+                        //     type: "boolean",
+                        //     label: "Show Semantic Fields",
+                        //     ref: "properties.showSemantic",
+                        //     defaultValue: false
+                        // },
+                        // qShowSrcTables: {
+                        //     type: "boolean",
+                        //     label: "Show Source Table Fields",
+                        //     ref: "properties.showSrcTables",
+                        //     defaultValue: false
+                        // },
+                        // qShowDefinitionOnly: {
+                        //     type: "boolean",
+                        //     label: "Show Fields defined on the Fly",
+                        //     ref: "properties.showDefinitionOnly",
+                        //     defaultValue: false
+                        // },
+                        // qShowDerivedFields: {
+                        //     type: "boolean",
+                        //     label: "Show Derived Fields",
+                        //     ref: "properties.showDerivedFields",
+                        //     defaultValue: false
+                        // },
+                        // qShowImplicit: {
+                        //     type: "boolean",
+                        //     label: "Show Direct Discovery Fields",
+                        //     ref: "properties.showImplicit",
+                        //     defaultValue: false
+                        // }
                     }
                 },
                 accessibility: {

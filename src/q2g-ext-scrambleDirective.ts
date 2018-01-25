@@ -3,6 +3,7 @@ import { utils,
          logging,
          directives }           from "../node_modules/davinci.js/dist/umd/daVinci";
 import * as template            from "text!./q2g-ext-scrambleDirective.html";
+import { checkDirectiveIsRegistrated } from "../node_modules/davinci.js/dist/umd/utils/utils";
 //#endregion
 
 //#region interfaces
@@ -234,11 +235,29 @@ class ScrambleController {
      * @param pos position of the callback to be selected
      */
     selectObjectCallback(pos: number) {
+
+        let checkIfFildAlreadyInList: boolean = false;
+        let counter: number = 0;
+
         this.showButtons = true;
         this.menuList[0].isEnabled = false;
-        this.selectedObjects.push(this.fieldList.collection[pos].title);
 
-        this.fieldList.collection[pos].status = "S";
+        for (const field of this.selectedObjects) {
+            if (field === this.fieldList.collection[pos].title) {
+                checkIfFildAlreadyInList = true;
+
+                this.selectedObjects.slice(counter, 1);
+
+                this.fieldList.collection[pos].status = "O";
+            }
+            counter++;
+        }
+
+        if (!checkIfFildAlreadyInList) {
+            this.selectedObjects.push(this.fieldList.collection[pos].title);
+            this.fieldList.collection[pos].status = "S";
+        }
+
         this.menuList = JSON.parse(JSON.stringify(this.menuList));
     }
 
