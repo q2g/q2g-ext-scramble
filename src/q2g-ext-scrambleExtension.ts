@@ -61,9 +61,9 @@ let parameter = {
                         },
                         qShowSrcTables: {
                             type: "boolean",
-                            label: "Show Sourc Table Fields",
+                            label: "Show Source Table Fields",
                             ref: "properties.showSrcTables",
-                            defaultValue: true
+                            defaultValue: false
                         },
                         qShowDefinitionOnly: {
                             type: "boolean",

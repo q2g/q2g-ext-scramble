@@ -97,7 +97,7 @@ class ScrambleController {
                 this.model.on("changed", function() {
                     that.model.getProperties()
                     .then((res) => {
-                        properites = that.buildListProperties(res);
+                        properites = that.buildListProperties(res.properties);
                         return that.setProperties(res.properties);
                     })
                     .then(() => {
