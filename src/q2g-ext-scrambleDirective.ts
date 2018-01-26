@@ -8,17 +8,10 @@ import { checkDirectiveIsRegistrated } from "../node_modules/davinci.js/dist/umd
 
 //#region interfaces
 export interface IShortcutProperties {
-    shortcutFocusDimensionList: string;
+    shortcutFocusFieldList: string;
     shortcutFocusSearchField: string;
     shortcutUseDefaults: string;
-    showObject: string;
-    showSystem: boolean;
     showHidden: boolean;
-    showSemantic: boolean;
-    showSrcTables: boolean;
-    showDefinitionOnly: boolean;
-    showDerivedFields: boolean;
-    showImplicit: boolean;
 }
 //#endregion
 
@@ -29,14 +22,21 @@ class ScrambleController {
     }
 
     //#region variables
+    actionDelay: number = 0;
     fieldList: utils.IQ2gListAdapter;
     element: JQuery;
     focusedPosition: number = 0;
     headerPlaceholder: string = "Search Dimensions";
     inputBarFocus: boolean = false;
     menuList: Array<utils.IMenuElement>;
+    properties: IShortcutProperties = {
+        shortcutFocusFieldList: " ",
+        shortcutFocusSearchField: " ",
+        shortcutUseDefaults: " ",
+        showHidden: false,
+    };
     showButtons: boolean = false;
-    showFocused: boolean = false;
+    showFocused: boolean = true;
     showSearchField: boolean = false;
     timeout: ng.ITimeoutService;
     titleDimension: string = "Scramble Extension";
@@ -213,6 +213,10 @@ class ScrambleController {
      */
     private setProperties(properties: any): Promise<boolean> {
         return new Promise((resolve, reject) => {
+            this.properties.shortcutFocusFieldList = properties.shortcutFocusFieldList;
+            this.properties.shortcutFocusSearchField = properties.shortcutFocusSearchField;
+            this.properties.shortcutUseDefaults = properties.shortcutUseDefaults;
+            this.properties.showHidden = properties.showHidden;
             resolve();
         });
     }
@@ -235,30 +239,36 @@ class ScrambleController {
      * @param pos position of the callback to be selected
      */
     selectObjectCallback(pos: number) {
+        setTimeout(() => {
 
-        let checkIfFildAlreadyInList: boolean = false;
-        let counter: number = 0;
+            let checkIfFildAlreadyInList: boolean = false;
+            let counter: number = 0;
 
-        this.showButtons = true;
-        this.menuList[0].isEnabled = false;
+            this.showFocused = true;
+            this.showButtons = true;
+            this.menuList[0].isEnabled = false;
 
-        for (const field of this.selectedObjects) {
-            if (field === this.fieldList.collection[pos].title) {
-                checkIfFildAlreadyInList = true;
+            for (const field of this.selectedObjects) {
+                if (field === this.fieldList.collection[pos].title) {
+                    checkIfFildAlreadyInList = true;
 
-                this.selectedObjects.slice(counter, 1);
+                    this.selectedObjects.splice(counter, 1);
 
-                this.fieldList.collection[pos].status = "O";
+                    this.fieldList.collection[pos].status = "O";
+                }
+                counter++;
             }
-            counter++;
-        }
 
-        if (!checkIfFildAlreadyInList) {
-            this.selectedObjects.push(this.fieldList.collection[pos].title);
-            this.fieldList.collection[pos].status = "S";
-        }
+            if (!checkIfFildAlreadyInList) {
 
-        this.menuList = JSON.parse(JSON.stringify(this.menuList));
+                this.selectedObjects.push(this.fieldList.collection[pos].title);
+                this.fieldList.collection[pos].status = "S";
+            }
+
+            this.menuList = JSON.parse(JSON.stringify(this.menuList));
+            this.timeout();
+
+        }, this.actionDelay);
     }
 
     /**
@@ -266,7 +276,6 @@ class ScrambleController {
      * @param objectShortcut object wich gives you the shortcut name and the element, from which the shortcut come from
      */
     shortcutHandler(shortcutObject: directives.IShortcutObject, domcontainer: utils.IDomContainer): boolean {
-
         switch (shortcutObject.name) {
             case "escAltState":
                 try {
@@ -276,6 +285,45 @@ class ScrambleController {
                     return true;
                 } catch (e) {
                     this.logger.error("Error in shortcutHandlerExtensionHeader", e);
+                    return false;
+                }
+
+            case "searchFields":
+                try {
+                    this.showSearchField = true;
+                    this.timeout();
+                    domcontainer.element.focus();
+                    return true;
+                } catch (e) {
+                    this.logger.error("Error in shortcut Handler", e);
+                    return false;
+                }
+            case "focusList":
+                try {
+                    this.showFocused = true;
+                    this.timeout();
+                    if (this.focusedPosition < 0 || this.focusedPosition >= this.fieldList.collection.length) {
+                        this.focusedPosition = 0;
+                        domcontainer.element.children().children().children()[0].focus();
+                        this.timeout();
+                        this.showSearchField = false;
+                        return true;
+                    }
+
+                    if (this.focusedPosition < this.fieldList.itemsPagingTop) {
+                        this.fieldList.itemsPagingTop = this.focusedPosition;
+                    } else if (this.focusedPosition >
+                        this.fieldList.itemsPagingTop + this.fieldList.itemsPagingHeight) {
+                        this.fieldList.itemsPagingTop
+                            = this.focusedPosition - (this.fieldList.itemsPagingHeight + 1);
+                    }
+                    domcontainer.element.children().children().children().children()[
+                        this.focusedPosition - this.fieldList.itemsPagingTop
+                    ].focus();
+                    this.showSearchField = false;
+                    return true;
+                } catch (e) {
+                    this.logger.error("Error in shortcut Handler", e);
                     return false;
                 }
         }
