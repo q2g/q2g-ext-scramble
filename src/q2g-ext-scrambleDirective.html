@@ -25,12 +25,12 @@
         </div>
             
         <div>
-            <q2g-listview style="height: calc(100% - 90px);"
+            <q2g-listview ng-style="{'height': vm.elementHeight-42+'px'}"
                             tabindex="0"
                             items="vm.fieldList.collection"
                             items-count="vm.fieldList.itemsCounter"
                             items-page-top="vm.fieldList.itemsPagingTop"
-                            items-page-height="vm.fieldList.itemsPagingHeight"
+                            items-page-size="vm.fieldList.itemsPagingHeight"
                             item-height="31"
                             item-focused="vm.focusedPosition"
                             show-focused="vm.showFocused"

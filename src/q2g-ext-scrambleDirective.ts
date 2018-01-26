@@ -1,6 +1,9 @@
 //#region interfaces
-import { utils, logging, directives } from "../node_modules/davinci.js/dist/daVinci";
-import * as template from "text!./q2g-ext-scrambleDirective.html";
+import { utils,
+         logging,
+         directives }           from "../node_modules/davinci.js/dist/umd/daVinci";
+import * as template            from "text!./q2g-ext-scrambleDirective.html";
+import { checkDirectiveIsRegistrated } from "../node_modules/davinci.js/dist/umd/utils/utils";
 //#endregion
 
 //#region interfaces
@@ -51,7 +54,7 @@ class ScrambleController {
                 this._headerInput = v;
                 this.fieldList.obj.searchFor(!v? "": v)
                 .then(() => {
-                    this.fieldList.obj.emit("changed", utils.calcNumbreOfVisRows(this.elementHeight));
+                    this.fieldList.obj.emit("changed", this.fieldList.itemsPagingHeight);
                     this.fieldList.itemsCounter = (this.fieldList.obj as any).model.calcCube.length;
                     this.timeout();
                 })
@@ -74,9 +77,6 @@ class ScrambleController {
         if (this.elementHeight !== value) {
             try {
                 this._elementHeight = value;
-                if (this.fieldList && this.fieldList.obj) {
-                    this.fieldList.obj.emit("changed", utils.calcNumbreOfVisRows(this.elementHeight));
-                }
             } catch (err) {
                 this.logger.error("error in setter of elementHeight ", err);
             }
@@ -98,7 +98,7 @@ class ScrambleController {
                 this.model.on("changed", function() {
                     that.model.getProperties()
                     .then((res) => {
-                        properites = that.buildListProperties(res);
+                        properites = that.buildListProperties(res.properties);
                         return that.setProperties(res.properties);
                     })
                     .then(() => {
@@ -121,7 +121,7 @@ class ScrambleController {
                                 });
 
                                 that.fieldList = new utils.Q2gListAdapter(
-                                    listObject, utils.calcNumbreOfVisRows(that.elementHeight),
+                                    listObject, that.fieldList.itemsPagingHeight,
                                     (objectLayout as any).qFieldList.qItems.length, "list");
                             })
                             .catch((error) => {
@@ -235,11 +235,29 @@ class ScrambleController {
      * @param pos position of the callback to be selected
      */
     selectObjectCallback(pos: number) {
+
+        let checkIfFildAlreadyInList: boolean = false;
+        let counter: number = 0;
+
         this.showButtons = true;
         this.menuList[0].isEnabled = false;
-        this.selectedObjects.push(this.fieldList.collection[pos].title);
 
-        this.fieldList.collection[pos].status = "S";
+        for (const field of this.selectedObjects) {
+            if (field === this.fieldList.collection[pos].title) {
+                checkIfFildAlreadyInList = true;
+
+                this.selectedObjects.slice(counter, 1);
+
+                this.fieldList.collection[pos].status = "O";
+            }
+            counter++;
+        }
+
+        if (!checkIfFildAlreadyInList) {
+            this.selectedObjects.push(this.fieldList.collection[pos].title);
+            this.fieldList.collection[pos].status = "S";
+        }
+
         this.menuList = JSON.parse(JSON.stringify(this.menuList));
     }
 

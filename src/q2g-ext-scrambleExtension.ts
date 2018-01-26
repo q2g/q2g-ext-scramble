@@ -2,7 +2,7 @@
 import * as qvangular from "qvangular";
 import * as qlik from "qlik";
 import * as template from "text!./q2g-ext-scrambleExtension.html";
-import { utils, logging, services, version } from "../node_modules/davinci.js/dist/daVinci";
+import { utils, logging, services, version } from "../node_modules/davinci.js/dist/umd/daVinci";
 import { ScrambleDirectiveFactory, IShortcutProperties } from "./q2g-ext-scrambleDirective";
 //#endregion
 
@@ -41,48 +41,48 @@ let parameter = {
                     label: "Configuration",
                     grouped: true,
                     items: {
-                        qShowSystem: {
-                            type: "boolean",
-                            label: "Show System Fields",
-                            ref: "properties.showSystem",
-                            defaultValue: false
-                        },
+                        // qShowSystem: {
+                        //     type: "boolean",
+                        //     label: "Show System Fields",
+                        //     ref: "properties.showSystem",
+                        //     defaultValue: false
+                        // },
                         qShowHidden: {
                             type: "boolean",
                             label: "Show Hidden Fields",
                             ref: "properties.showHidden",
                             defaultValue: false
-                        },
-                        qShowSemantic: {
-                            type: "boolean",
-                            label: "Show Semantic Fields",
-                            ref: "properties.showSemantic",
-                            defaultValue: false
-                        },
-                        qShowSrcTables: {
-                            type: "boolean",
-                            label: "Show Sourc Table Fields",
-                            ref: "properties.showSrcTables",
-                            defaultValue: true
-                        },
-                        qShowDefinitionOnly: {
-                            type: "boolean",
-                            label: "Show Fields defined on the Fly",
-                            ref: "properties.showDefinitionOnly",
-                            defaultValue: false
-                        },
-                        qShowDerivedFields: {
-                            type: "boolean",
-                            label: "Show Deroved Fields",
-                            ref: "properties.showDerivedFields",
-                            defaultValue: false
-                        },
-                        qShowImplicit: {
-                            type: "boolean",
-                            label: "Show Direct Discovery Fields",
-                            ref: "properties.showImplicit",
-                            defaultValue: false
                         }
+                        // qShowSemantic: {
+                        //     type: "boolean",
+                        //     label: "Show Semantic Fields",
+                        //     ref: "properties.showSemantic",
+                        //     defaultValue: false
+                        // },
+                        // qShowSrcTables: {
+                        //     type: "boolean",
+                        //     label: "Show Source Table Fields",
+                        //     ref: "properties.showSrcTables",
+                        //     defaultValue: false
+                        // },
+                        // qShowDefinitionOnly: {
+                        //     type: "boolean",
+                        //     label: "Show Fields defined on the Fly",
+                        //     ref: "properties.showDefinitionOnly",
+                        //     defaultValue: false
+                        // },
+                        // qShowDerivedFields: {
+                        //     type: "boolean",
+                        //     label: "Show Derived Fields",
+                        //     ref: "properties.showDerivedFields",
+                        //     defaultValue: false
+                        // },
+                        // qShowImplicit: {
+                        //     type: "boolean",
+                        //     label: "Show Direct Discovery Fields",
+                        //     ref: "properties.showImplicit",
+                        //     defaultValue: false
+                        // }
                     }
                 },
                 accessibility: {
@@ -161,6 +161,17 @@ export = {
     definition: parameter,
     initialProperties: { },
     template: template,
+    support: {
+        snapshot: false,
+        export: false,
+        exportData: false
+    },
+    paint: () => {
+        //
+    },
+    resize: () => {
+        //
+    },
     controller: ["$scope", function (scope: utils.IVMScope<ScrambleDimensionExtension>) {
         logger.info("Extension is using daVinci.js Verions: " + version);
         scope.vm = new ScrambleDimensionExtension(utils.getEnigma(scope));
