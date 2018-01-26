@@ -262,6 +262,26 @@ class ScrambleController {
     }
 
     /**
+     * shortcuthandler to clears the made selection
+     * @param objectShortcut object wich gives you the shortcut name and the element, from which the shortcut come from
+     */
+    shortcutHandler(shortcutObject: directives.IShortcutObject, domcontainer: utils.IDomContainer): boolean {
+
+        switch (shortcutObject.name) {
+            case "escAltState":
+                try {
+                    if (this.headerInput === "") {
+                        this.showSearchField = false;
+                    }
+                    return true;
+                } catch (e) {
+                    this.logger.error("Error in shortcutHandlerExtensionHeader", e);
+                    return false;
+                }
+        }
+    }
+
+    /**
      * fills the Menu with Elements
      */
     private initMenuElements(): void {
@@ -318,6 +338,8 @@ export function ScrambleDirectiveFactory(rootNameSpace: string): ng.IDirectiveFa
                     directives.ListViewDirectiveFactory(rootNameSpace), "Listview");
                 utils.checkDirectiveIsRegistrated($injector, $registrationProvider, rootNameSpace,
                     directives.ExtensionHeaderDirectiveFactory(rootNameSpace), "ExtensionHeader");
+                utils.checkDirectiveIsRegistrated($injector, $registrationProvider, rootNameSpace,
+                    directives.ShortCutDirectiveFactory(rootNameSpace), "Shortcut");
             }
         };
     };
