@@ -248,6 +248,7 @@ class ScrambleController {
             this.showFocused = true;
             this.showButtons = true;
             this.menuList[0].isEnabled = false;
+            this.focusedPosition = pos + this.fieldList.itemsPagingTop;
 
             for (const field of this.selectedObjects) {
                 if (field === this.fieldList.collection[pos].title) {
