@@ -24,6 +24,7 @@ class ScrambleController {
     //#region variables
     actionDelay: number = 0;
     fieldList: utils.IQ2gListAdapter;
+    editMode: boolean;
     element: JQuery;
     focusedPosition: number = 0;
     headerPlaceholder: string = "Search Dimensions";
@@ -326,6 +327,17 @@ class ScrambleController {
                     this.logger.error("Error in shortcut Handler", e);
                     return false;
                 }
+        }
+    }
+
+    /**
+     * checks if the extension is used in Edit mode
+     */
+    isEditMode(): boolean {
+        if (this.editMode) {
+            return true;
+        } else {
+            return false;
         }
     }
 

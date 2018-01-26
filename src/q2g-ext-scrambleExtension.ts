@@ -4,6 +4,7 @@ import * as qlik from "qlik";
 import * as template from "text!./q2g-ext-scrambleExtension.html";
 import { utils, logging, services, version } from "../node_modules/davinci.js/dist/umd/daVinci";
 import { ScrambleDirectiveFactory, IShortcutProperties } from "./q2g-ext-scrambleDirective";
+import "css!./q2g-ext-scrambleExtension.css";
 //#endregion
 
 //#region registrate services
