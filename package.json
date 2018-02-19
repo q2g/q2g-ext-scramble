@@ -18,7 +18,7 @@
     "gulp-less": "3.5.0"
   },
   "dependencies": {
-    "davinci.js": "1.2.0"
+    "davinci.js": "1.3.0"
   },
   "scripts": {
     "comp": "tsc -p tsconfig.json",
