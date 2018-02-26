@@ -1,15 +1,15 @@
 {
     "name": "q2g Scramble",
-    "description": "",
+    "description": "This extension was developed, to scramble fields in the datamodel of an app.",
     "type": "visualization",
     "icon": "filterpane",
-    "version": "0.0.1",
-    "author": "Thomas Hänig, Konrad Mattheis",
+    "version": "1.0.0",
+    "author": "Thomas Hänig, Konrad Mattheis (qlik2go)",
     "preview": "preview.png",
     "homepage": "",
     "keywords": "qlik-sense, visualization",
     "license": "MIT",
-    "repository": "",
+    "repository": "https://github.com/q2g/q2g-ext-scramble",
     "dependencies": {
         "qlik-sense": ">=3.2.x"
     }
