@@ -4,6 +4,7 @@ import * as qlik from "qlik";
 import * as template from "text!./q2g-ext-scrambleExtension.html";
 import { utils, logging, services, version } from "../node_modules/davinci.js/dist/umd/daVinci";
 import { ScrambleDirectiveFactory, IShortcutProperties } from "./q2g-ext-scrambleDirective";
+import "css!./q2g-ext-scrambleExtension.css";
 //#endregion
 
 //#region registrate services
@@ -41,48 +42,12 @@ let parameter = {
                     label: "Configuration",
                     grouped: true,
                     items: {
-                        // qShowSystem: {
-                        //     type: "boolean",
-                        //     label: "Show System Fields",
-                        //     ref: "properties.showSystem",
-                        //     defaultValue: false
-                        // },
                         qShowHidden: {
                             type: "boolean",
                             label: "Show Hidden Fields",
                             ref: "properties.showHidden",
                             defaultValue: false
                         }
-                        // qShowSemantic: {
-                        //     type: "boolean",
-                        //     label: "Show Semantic Fields",
-                        //     ref: "properties.showSemantic",
-                        //     defaultValue: false
-                        // },
-                        // qShowSrcTables: {
-                        //     type: "boolean",
-                        //     label: "Show Source Table Fields",
-                        //     ref: "properties.showSrcTables",
-                        //     defaultValue: false
-                        // },
-                        // qShowDefinitionOnly: {
-                        //     type: "boolean",
-                        //     label: "Show Fields defined on the Fly",
-                        //     ref: "properties.showDefinitionOnly",
-                        //     defaultValue: false
-                        // },
-                        // qShowDerivedFields: {
-                        //     type: "boolean",
-                        //     label: "Show Derived Fields",
-                        //     ref: "properties.showDerivedFields",
-                        //     defaultValue: false
-                        // },
-                        // qShowImplicit: {
-                        //     type: "boolean",
-                        //     label: "Show Direct Discovery Fields",
-                        //     ref: "properties.showImplicit",
-                        //     defaultValue: false
-                        // }
                     }
                 },
                 accessibility: {
@@ -108,14 +73,14 @@ let parameter = {
                             }],
                             defaultValue: true
                         },
-                        shortcutFocusDimensionList: {
-                            ref: "properties.shortcutFocusDimensionList",
-                            label: "focus dimension list",
+                        shortcutFocusFieldList: {
+                            ref: "properties.shortcutFocusFieldList",
+                            label: "focus field list",
                             type: "string",
-                            defaultValue: "strg + alt + 66",
+                            defaultValue: "strg + alt + 70",
                             show: function (data: IDataProperties) {
                                 if (data.properties.shortcutUseDefaults) {
-                                    data.properties.shortcutFocusDimensionList = "strg + alt + 66";
+                                    data.properties.shortcutFocusFieldList = "strg + alt + 70";
                                 }
                                 return !data.properties.shortcutUseDefaults;
                             }

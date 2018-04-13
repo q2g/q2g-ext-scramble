@@ -6,7 +6,9 @@
     style="height:100%; width:100%">
 
     <div>
-        <div>
+        <div q2g-shortcut
+             shortcut="[{name:'escAltState', shortcut:'27'}]"
+             shortcut-action="vm.shortcutHandler(shortcutObject, domcontainer)">
             <q2g-extension-header max-number-of-elements="5"
                                   reserved-button-width="0.5"
                                   title="vm.titleDimension"
@@ -24,19 +26,28 @@
             </q2g-extension-header>
         </div>
             
-        <div>
+        <div q2g-shortcut
+             shortcut="[
+                {name:'focusList', shortcut:vm.properties.shortcutFocusFieldList, rootscope: '|global|'},
+                {name:'searchFields', shortcut:vm.properties.shortcutFocusSearchField},
+             ]"
+             shortcut-action="vm.shortcutHandler(shortcutObject, domcontainer)">
             <q2g-listview ng-style="{'height': vm.elementHeight-42+'px'}"
-                            tabindex="0"
-                            items="vm.fieldList.collection"
-                            items-count="vm.fieldList.itemsCounter"
-                            items-page-top="vm.fieldList.itemsPagingTop"
-                            items-page-size="vm.fieldList.itemsPagingHeight"
-                            item-height="31"
-                            item-focused="vm.focusedPosition"
-                            show-focused="vm.showFocused"
-                            callback-listview-objects="vm.selectObjectCallback(pos)"
-                            theme="vm.theme">
+                          tabindex="0"
+
+                          items="vm.fieldList.collection"
+                          items-count="vm.fieldList.itemsCounter"
+                          items-page-top="vm.fieldList.itemsPagingTop"
+                          items-page-size="vm.fieldList.itemsPagingHeight"
+                          item-height="31"
+                          item-focused="vm.focusedPosition"
+
+                          show-focused="vm.showFocused"
+                          callback-listview-objects="vm.selectObjectCallback(pos)"
+                          theme="vm.theme">
             </q2g-listview>
         </div>
     </div>
+    <div ng-if="vm.isEditMode()"
+         class="editMode"></div>
 </div>
