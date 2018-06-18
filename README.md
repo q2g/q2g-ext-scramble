@@ -1,6 +1,5 @@
 # q2g-ext-scramble
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/1dd2a763ff3f4c41980c5e6a98c1575f)](https://app.codacy.com/app/konne/q2g-ext-scramble?utm_source=github.com&utm_medium=referral&utm_content=q2g/q2g-ext-scramble&utm_campaign=badger)
-[![Greenkeeper badge](https://badges.greenkeeper.io/q2g/q2g-ext-scramble.svg)](https://greenkeeper.io/)
 [![TravisCI](https://travis-ci.org/q2g/q2g-ext-scramble.svg?branch=master)](https://travis-ci.org/q2g/q2g-ext-scramble)
 [![Downloads](https://m.sense2go.net/downloads.svg?q2g-ext-scramble)](https://m.sense2go.net/extension-package)
 
