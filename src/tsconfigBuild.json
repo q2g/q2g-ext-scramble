@@ -1,0 +1,22 @@
+{
+    "compileOnSave": true,
+    "exclude": [
+      ".vscode",
+      "node_modules"
+    ],
+    "compilerOptions": {
+      "noEmitOnError": true,
+      "noImplicitAny": false,
+      "removeComments": false,
+      "sourceMap": true,
+      "target": "es5",
+      "moduleResolution": "node",
+      "lib": [
+        "dom",
+        "es5",
+        "es2015.promise",
+        "es2015.iterable",
+        "scripthost"
+      ]
+    }
+  }
