@@ -1,0 +1,25 @@
+{
+  "name": "q2g-ext-scramble",
+  "version": "0.0.1",
+  "license": "MIT",
+  "description": "displayes all scramble",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/q2g/q2g-ext-scramble"
+  },
+  "author": "Thomas Häning, Konrad Mattheis (qlik2go) ",
+  "devDependencies": {
+    "@types/chai": "^4.1.2",
+    "@types/mocha": "2.2.48",
+    "chai": "4.1.2",
+    "mocha": "5.1.1",
+    "typescript": "2.7.2"
+  },
+  "dependencies": {
+    "davinci.js": "1.4.0"
+  },
+  "scripts": {
+    "test": "tsc -p tsconfig.json && mocha --recursive"
+  },
+  "renovate-config": {}
+}
