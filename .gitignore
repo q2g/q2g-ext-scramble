@@ -9,10 +9,6 @@ package-lock.json
 node_modules/
 dist/
 
-## Include
-!q2g-ext-scramble.js
-!gulpfile.js
-
 ## Standard vccode
 .vscode/*
 !.vscode/settings.json

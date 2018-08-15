@@ -1,0 +1,18 @@
+{
+  "packageRules": [
+    {
+      "packagePatterns": ["tslint", "prettier"],
+      "groupName": "linters"
+    }
+  ],
+  "baseBranches": [
+    "devlopment"
+  ],
+  "assignees": ["r-hannuschka"],
+  "automerge": false,
+  "extends": [
+    "config:base"
+  ],
+  "schedule": "before 10am",
+  "timezone": "Europe/Berlin"
+}
