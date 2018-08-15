@@ -1,0 +1,4 @@
+{
+    "environment": "debug",
+    "tsConfigFile": "./tsconfigBuild.json"
+}
