@@ -1,22 +1,8 @@
 {
-    "compileOnSave": true,
-    "exclude": [
-      ".vscode",
-      "node_modules"
-    ],
+    "extends": "./tsconfig.json",
     "compilerOptions": {
-      "noEmitOnError": true,
-      "noImplicitAny": false,
-      "removeComments": false,
-      "sourceMap": true,
+      "module": "commonjs",
       "target": "es5",
-      "moduleResolution": "node",
-      "lib": [
-        "dom",
-        "es5",
-        "es2015.promise",
-        "es2015.iterable",
-        "scripthost"
-      ]
+      "moduleResolution": "node"
     }
   }

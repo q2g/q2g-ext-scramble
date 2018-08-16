@@ -1,9 +1,8 @@
 //#region interfaces
 import { utils,
          logging,
-         directives }           from "./node_modules/davinci.js/dist/esm/daVinci";
+         directives }           from "./node_modules/davinci.js/dist/umd/daVinci";
 import * as template            from "text!./q2g-ext-scrambleDirective.html";
-import { checkDirectiveIsRegistrated } from "./node_modules/davinci.js/dist/esm/utils/utils";
 //#endregion
 
 //#region interfaces
