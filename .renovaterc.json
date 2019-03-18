@@ -6,7 +6,7 @@
     }
   ],
   "baseBranches": [
-    "devlopment"
+    "development"
   ],
   "assignees": ["r-hannuschka"],
   "automerge": false,
