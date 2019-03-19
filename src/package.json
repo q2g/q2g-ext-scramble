@@ -13,7 +13,7 @@
         "@types/jquery": "3.3.29",
         "@types/qlik-engineapi": "12.67.8",
         "@types/qlik-visualizationextensions": "4.0.4",
-        "q2g-build": "1.1.5",
+        "q2g-build": "1.3.2",
         "typescript": "3.0.1"
     },
     "dependencies": {
