@@ -14,5 +14,6 @@
     "config:base"
   ],
   "schedule": "before 10am",
-  "timezone": "Europe/Berlin"
+  "timezone": "Europe/Berlin",
+  "labels": ["dependencies"]
 }
