@@ -1,9 +1,13 @@
 # q2g-ext-scramble
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1dd2a763ff3f4c41980c5e6a98c1575f)](https://app.codacy.com/app/konne/q2g-ext-scramble?utm_source=github.com&utm_medium=referral&utm_content=q2g/q2g-ext-scramble&utm_campaign=badger)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b571357db4464b669486f547da8dd3de)](https://www.codacy.com/app/thomashaenig/q2g-ext-bookmark?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=q2g/q2g-ext-bookmark&amp;utm_campaign=Badge_Grade)
 [![TravisCI](https://travis-ci.org/q2g/q2g-ext-scramble.svg?branch=master)](https://travis-ci.org/q2g/q2g-ext-scramble)
-[![Downloads](https://m.sense2go.net/downloads.svg?q2g-ext-scramble)](https://m.sense2go.net/extension-package)
+<a href="https://m.sense2go.net/extension-package"><img src="https://m.sense2go.net/downloads.svg" alt="drawing" width="130"/></a>
 
 This extension was developed, to scramble fields in the datamodel of an app.
+
+<aside class="warning">
+The scramble function is not working with the actual qlik sense releases. For a workaround you have to duplicate the app after scrambling. Important is, that you do not close the session in which you have scrambled bevor duplicating the app.
+</aside>
 
 ## Intro
 
