@@ -28,6 +28,7 @@
         "type": "visualization"
     },
     "scripts": {
-        "build": "node node_modules/q2g-build --builder extension --config q2g.extension.json"
+        "q2g-build:dev": "node node_modules/q2g-build --builder extension --config q2g-build.webpack.json",
+        "q2g-build:prod": "node node_modules/q2g-build --builder extension --env production --config q2g-build.webpack.json"
     }
 }

@@ -225,10 +225,14 @@ class ScrambleController {
      * function which gets called, when the buttons of the menu list gets hit
      * @param item name of the button which got activated
      */
-    menuListActionCallback(): void {
+    async menuListActionCallback(): Promise<void> {
+        let arr: Promise<void>[] = [];
         for(var field of this.selectedObjects) {
-            this.model.app.scramble(field);
+            arr.push(this.model.app.scramble(field));
         }
+
+        await Promise.all(arr);
+        await this.model.app.doSave();
         this.menuList[0].isEnabled = false;
         this.menuList = JSON.parse(JSON.stringify(this.menuList));
         this.selectedObjects = [];
