@@ -14,7 +14,7 @@
         "@types/qlik-engineapi": "12.67.8",
         "@types/qlik-visualizationextensions": "4.0.4",
         "q2g-build": "1.4.0",
-        "typescript": "3.5.1"
+        "typescript": "3.7.5"
     },
     "dependencies": {
         "davinci.js": "1.4.5"
