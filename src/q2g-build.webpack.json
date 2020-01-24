@@ -1,0 +1,8 @@
+{
+    "entryFile": "./q2g-ext-scramble.ts",
+    "outFileName": "q2g-ext-scramble",
+    "outputDirectory": "./dist",
+    "tsConfigFile": "q2g-build.tsconfig.json",
+    "watch": true,
+    "ci": true
+}

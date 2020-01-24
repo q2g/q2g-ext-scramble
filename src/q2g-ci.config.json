@@ -1,0 +1,8 @@
+{
+    "desktop": true,
+    "qrs": [
+        {
+            "host": "localhost"
+        }
+    ]
+}

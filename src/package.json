@@ -1,33 +1,34 @@
 {
-    "name": "q2g-ext-scramble",
-    "version": "1.0.0",
-    "license": "MIT",
-    "description": "This extension was developed, to scramble fields in the datamodel of an app.",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/q2g/q2g-ext-scramble"
-    },
-    "author": "Thomas Häning, Konrad Mattheis (qlik2go) ",
-    "devDependencies": {
-        "@types/angular": "1.6.47",
-        "@types/jquery": "3.3.3",
-        "@types/qlik-engineapi": "12.67.1",
-        "@types/qlik-visualizationextensions": "4.0.2",
-        "q2g-build": "1.1.5",
-        "typescript": "3.0.1"
-    },
+  "name": "q2g-ext-scramble",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "This extension was developed, to scramble fields in the datamodel of an app.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/q2g/q2g-ext-scramble"
+  },
+  "author": "Thomas Häning, Konrad Mattheis (qlik2go) ",
+  "devDependencies": {
+    "@types/angular": "1.6.57",
+    "@types/jquery": "3.3.31",
+    "@types/qlik-engineapi": "12.67.8",
+    "@types/qlik-visualizationextensions": "4.0.4",
+    "q2g-build": "2.0.7"
+  },
+  "dependencies": {
+    "davinci.js": "1.5.1"
+  },
+  "qext": {
     "dependencies": {
-        "davinci.js": "1.4.5"
+      "qlik-sense": ">=3.2.x"
     },
-    "qext": {
-        "dependencies": {
-            "qlik-sense": ">=3.2.x"
-        },
-        "icon": "filterpane",
-        "name": "q2g Scamble",
-        "type": "visualization"
-    },
-    "scripts": {
-        "build": "node node_modules/q2g-build --builder extension --config q2g.extension.json"
-    }
+    "icon": "filterpane",
+    "name": "q2g Scamble",
+    "type": "visualization",
+    "id": "q2g-ext-scramble"
+  },
+  "scripts": {
+    "q2g-build:dev": "node node_modules/q2g-build --builder extension --config q2g-build.webpack.json",
+    "q2g-build:prod": "node node_modules/q2g-build --builder extension --env production --config q2g-build.webpack.json"
+  }
 }
